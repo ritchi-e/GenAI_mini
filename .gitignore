@@ -1,0 +1,15 @@
+data/
+runs/
+logs/*
+!logs/.gitkeep
+.venv/
+__pycache__/
+*.pyc
+*.part
+*.tmp
+results/
+prep.log
+.DS_Store
+# trained weights are large; commit them deliberately with `git add -f weights/model.pth` if wanted
+weights/*
+!weights/.gitkeep

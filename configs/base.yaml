@@ -1,0 +1,40 @@
+# Highest-quality model: ~11 GFLOPs (fvcore) / 21 M params at 1x3x256x256.
+model:
+  name: nafunet
+  width: 32
+  enc_blocks: [1, 1, 2, 8]
+  middle_blocks: 8
+  dec_blocks: [1, 1, 1, 1]
+
+data:
+  root: data/train              # override with --opt data.root=/path if data lives elsewhere
+  val_root: data/val
+  domains: {natural: 0.6, medical: 0.3, lowlight: 0.1}
+  strength: 1.0                 # scales the probability of blur / CA / JPEG etc.
+  lowlight_p: 0.15              # prob. of darkening the clean target (low-light content)
+  gray_p: 0.08                  # prob. of converting natural images to grayscale
+  num_workers: null             # null -> derived from SLURM_CPUS_PER_TASK
+
+train:
+  out_dir: runs/base
+  seed: 0
+  total_iters: 300000
+  # progressive training: small patches first (fast), then the true 256x256 size,
+  # finally a short perceptual (DISTS) fine-tune. `batch` is the GLOBAL batch size.
+  stages:
+    - {until: 220000, patch: 128, batch: 32, w_dists: 0.0}
+    - {until: 280000, patch: 256, batch: 16, w_dists: 0.0}
+    - {until: 300000, patch: 256, batch: 16, w_dists: 0.05}
+  loss: {charb: 1.0, ssim: 0.2, fft: 0.05}
+  lr: 1.0e-3
+  min_lr: 1.0e-6
+  warmup_iters: 2000
+  weight_decay: 0.0
+  grad_clip: 0.5
+  ema_decay: 0.999
+  amp: true
+  log_every: 200
+  val_every: 5000
+  val_limit: null
+  val_dists: true
+  save_every: 2000

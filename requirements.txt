@@ -1,0 +1,8 @@
+# PyTorch / torchvision come from the cluster module (module load python/3.10.pytorch).
+# On a machine without that module, install them first: pip install torch torchvision
+opencv-python-headless
+scikit-image
+pyyaml
+fvcore
+ptflops
+DISTS_pytorch

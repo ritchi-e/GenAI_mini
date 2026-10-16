@@ -1,0 +1,30 @@
+# Quick end-to-end check (minutes, even on CPU). Not for submission.
+model: {name: nafunet, width: 16, enc_blocks: [1, 1, 1, 1], middle_blocks: 1, dec_blocks: [1, 1, 1, 1]}
+data:
+  root: data/train
+  val_root: data/val
+  domains: {natural: 0.6, medical: 0.3, lowlight: 0.1}
+  strength: 1.0
+  lowlight_p: 0.15
+  gray_p: 0.08
+  num_workers: 2
+train:
+  out_dir: runs/debug
+  seed: 0
+  total_iters: 60
+  stages:
+    - {until: 30, patch: 64, batch: 4, w_dists: 0.0}
+    - {until: 60, patch: 128, batch: 2, w_dists: 0.05}
+  loss: {charb: 1.0, ssim: 0.2, fft: 0.05}
+  lr: 1.0e-3
+  min_lr: 1.0e-6
+  warmup_iters: 10
+  weight_decay: 0.0
+  grad_clip: 0.5
+  ema_decay: 0.99
+  amp: true
+  log_every: 10
+  val_every: 30
+  val_limit: 8
+  val_dists: true
+  save_every: 20
