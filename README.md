@@ -27,7 +27,7 @@ ssh <username>@172.25.1.11
 ```
 
 ```bash
-git clone <this-repo-url> denoise-competition && cd denoise-competition
+git clone https://github.com/ritchi-e/GenAI_mini.git && cd GenAI_mini
 ```
 
 ### 1.2 Set up the Python environment (login node, once)
@@ -75,7 +75,7 @@ scratch with `--root /path/to/scratch/data` and pass `DATA_ROOT=/path/to/scratch
 
 > **No internet on the cluster at all?** Run `python prepare_data.py` on any other machine,
 > then copy the prepared folders over:
-> `rsync -av data/train data/val <username>@172.25.1.11:~/denoise-competition/data/`
+> `rsync -av data/train data/val <username>@172.25.1.11:~/GenAI_mini/data/`
 
 ### 1.4 Choose the partition
 
