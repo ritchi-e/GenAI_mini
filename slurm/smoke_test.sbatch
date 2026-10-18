@@ -1,7 +1,7 @@
 #!/bin/bash
 # 2-minute GPU check of the whole pipeline (tiny model, 60 iterations). Run this before the real job.
 #SBATCH --job-name=denoise-smoke
-#SBATCH --partition=small           # <-- set to a partition name from `sinfo`
+#SBATCH --partition=phd           # <-- set to a partition name from `sinfo`
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4

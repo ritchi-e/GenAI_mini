@@ -2,7 +2,7 @@
 # Export the best checkpoint to weights/model.pth and evaluate it (PSNR / SSIM / DISTS / FLOPs).
 #   sbatch --export=ALL,RUN=runs/small slurm/eval.sbatch
 #SBATCH --job-name=denoise-eval
-#SBATCH --partition=small           # <-- set to a partition name from `sinfo`
+#SBATCH --partition=phd           # <-- set to a partition name from `sinfo`
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4

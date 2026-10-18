@@ -62,8 +62,10 @@ def download(urls, dst, attempts=5):
             print(f"  [get ] {url}" + (f" (attempt {attempt}, resuming)" if attempt > 1 else ""), flush=True)
             try:
                 if shutil.which("curl"):
-                    subprocess.run(["curl", "-L", "-sS", "--http1.1", "--fail", "--retry", "5",
-                                    "--retry-all-errors", "-C", "-", "-o", tmp, url], check=True)
+                    # --retry-all-errors needs curl >= 7.71; RHEL/Rocky 8 ships older curl
+                    cmd = ["curl", "-L", "-sS", "--http1.1", "--fail", "--retry", "5",
+                           "-C", "-", "-o", tmp, url]
+                    subprocess.run(cmd, check=True)
                 else:
                     with urllib.request.urlopen(url) as r, open(tmp, "wb") as f:
                         shutil.copyfileobj(r, f, 1 << 20)

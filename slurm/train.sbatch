@@ -7,7 +7,7 @@
 # Training checkpoints to runs/<name>/last.pth and auto-resumes: if the job hits the
 # wall-time limit, just submit the same command again.
 #SBATCH --job-name=denoise-train
-#SBATCH --partition=small           # <-- set to a partition name from `sinfo`
+#SBATCH --partition=phd           # <-- set to a partition name from `sinfo`
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16          # degradations are generated on CPU: more cores = faster

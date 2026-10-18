@@ -91,11 +91,15 @@ def gaussian_noise(img, rng):
 
 def poisson_noise(img, rng):
     peak = 10 ** rng.uniform(0.7, 2.7)   # ~5 .. 500 photons at white
+    # NaN/Inf (e.g. from earlier ops) make Generator.poisson raise "lam value too large"
+    safe = np.nan_to_num(img, nan=0.0, posinf=1.0, neginf=0.0)
     if rng.random() < 0.35:
-        gray = img.mean(2, keepdims=True)
-        noisy = rng.poisson(np.clip(gray, 0, 1) * peak).astype(np.float32) / peak
+        gray = safe.mean(2, keepdims=True)
+        lam = np.clip(gray, 0.0, 1.0) * peak
+        noisy = rng.poisson(lam).astype(np.float32) / peak
         return img + (noisy - gray)
-    return rng.poisson(np.clip(img, 0, 1) * peak).astype(np.float32) / peak
+    lam = np.clip(safe, 0.0, 1.0) * peak
+    return rng.poisson(lam).astype(np.float32) / peak
 
 
 def speckle_noise(img, rng):
@@ -267,5 +271,6 @@ def augment_content(img, rng, lowlight_p=0.15, gray_p=0.08):
     if rng.random() < gray_p:
         img = np.repeat(img.mean(2, keepdims=True), 3, axis=2)
     if rng.random() < lowlight_p:
-        img = np.power(img, rng.uniform(1.0, 2.2)) * rng.uniform(0.08, 0.6)
-    return np.ascontiguousarray(img, dtype=np.float32)
+        # clip first: negative pixels make np.power emit NaNs
+        img = np.power(np.clip(img, 0.0, 1.0), rng.uniform(1.0, 2.2)) * rng.uniform(0.08, 0.6)
+    return np.ascontiguousarray(np.clip(img, 0.0, 1.0), dtype=np.float32)
