@@ -1,0 +1,18 @@
+saved weights/model.pth  (26.22 MB)  arch={'width': 24, 'enc_blocks': [1, 1, 2, 4], 'middle_blocks': 4, 'dec_blocks': [1, 1, 1, 1]}
+/scratch/p26cs0010/GenAI_mini/denoise/model.py:92: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  x_in = F.pad(inp, (0, pw, 0, ph), mode="reflect") if (ph or pw) else inp
+[skip] ONNX export failed (OnnxExporterError: Module onnx is not installed!); the .pth file is complete on its own
+/scratch/p26cs0010/GenAI_mini/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/scratch/p26cs0010/GenAI_mini/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG16_Weights.IMAGENET1K_V1`. You can also use `weights=VGG16_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+
+group         n  PSNR_in     PSNR    SSIM   DISTS
+lowlight     15   27.257   38.858  0.9145  0.2025
+medical      44   22.095   34.084  0.8914  0.1361
+natural      60   19.691   25.957  0.7638  0.2046
+ALL         119   21.534   30.588  0.8300  0.1790
+
+       params_M: 6.5349
+  fvcore_GFLOPs: 4.4518
+  ptflops_GMACs: 4.5205
