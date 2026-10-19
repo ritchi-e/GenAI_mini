@@ -22,7 +22,7 @@ on the institute's **DGX / DPU-HPC cluster (Slurm)**.
 | Trained weights (PyTorch) | `weights/model.pth`: dict `{"state_dict", "arch"}`, fp32 |
 | Trained weights (ONNX) | `weights/model.onnx`: opset 17, input `(1,3,256,256)` float in [0,1] named `input`; clamp the output to [0,1], ×255, round to uint8 |
 | Inference code | `inference.py` (CLI + `Denoiser` class), needs `denoise/model.py` and `denoise/utils.py` |
-| Technical report | `report/Technical_Report.pdf` (2 pages; LaTeX source in `report/report.tex`) |
+| Technical report | `FMGAI_MiniCompetition.pdf`|
 | FLOPs check | `python count_flops.py --weights weights/model.pth` → 4.45 GFLOPs (fvcore) |
 
 Minimal run (needs `torch`, `numpy`, `opencv-python-headless`):
