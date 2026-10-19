@@ -1,5 +1,9 @@
 # Mini Competition: Small Generative Model for Image Denoising
 
+**Sachin Singh (P26CS0010)** · **Richard David (P26CS0007)**
+
+Department of Computer Science and Engineering, IIT Jodhpur
+
 A compact, FLOP-efficient **blind image restoration** model. It takes one corrupted
 256×256×3 RGB image and returns the restored 256×256×3 **uint8** image. It is trained on
 broadly randomized synthetic corruptions of natural, medical and low-light images, so it
